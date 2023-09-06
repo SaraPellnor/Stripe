@@ -1,0 +1,28 @@
+
+// ----------------- PRODUCTS
+
+###
+
+GET http://localhost:3000/api/products
+
+###
+
+GET http://localhost:3000/api/products/:id
+
+
+// ----------------- USERS
+
+###
+
+GET http://localhost:3000/api/users
+
+###
+
+POST http://localhost:3000/api/users
+
+
+// ----------------- ORDERS
+
+###
+
+POST http://localhost:3000/api/orders
