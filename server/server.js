@@ -7,6 +7,7 @@ const app = express();
 app.use(express.json());
 const CLIENT_URL = 'http://localhost:5173';
 
+
 // MiddleWares
 app.use(
   cors({
