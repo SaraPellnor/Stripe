@@ -1,11 +1,7 @@
 const Pay = () => {
     async function handlePayment() {
 
-      const paymentData = 
-        [{price: '1500',
-        quantity: 1
-        }]
-      ;
+    
 
         const response = await fetch(
           'http://localhost:3000/create-checkout-session',
@@ -14,12 +10,12 @@ const Pay = () => {
             headers: {
               'Content-Type': 'application/json',
             },
-            body: JSON.stringify(paymentData),
+            body: JSON.stringify([]),
           }
         );
     
         if (!response.ok) {
-          return;
+          throw new Error(`Server returned status ${response.status}`);
         }
     
         const { url } = await response.json();

@@ -1,0 +1,32 @@
+.header {
+    height: 30em;
+    width: 100vw;
+    /* position: fixed */
+}
+
+.logo {
+    display: flex;
+    flex-direction: row;
+    height: 23em;
+    width: 100vw;
+    background-image: url("../../assets/Skärmbild 2023-09-06 113603.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.navMenu {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 7em;
+    width: 100vw;
+}
+
+.navMenu ul {
+    display: flex;
+    justify-content: center;
+    gap: 3em;
+    list-style: none;
+    
+}
