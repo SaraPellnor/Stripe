@@ -1,0 +1,45 @@
+.LogInForm {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.LogInForm label {
+  font-size: 1.2em;
+  margin-bottom: 8px;
+}
+
+.LogInForm input,
+.LogInForm input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1em;
+  background-color: #c0bdbd;
+}
+
+.LogInForm button {
+  background-color: #adc0b2;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  font-size: 1.2em;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.LogInForm button:hover {
+  background-color: #97a89c;
+}
+
+.formDiv p a {
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.formDiv p a:hover {
+  text-decoration: underline;
+}

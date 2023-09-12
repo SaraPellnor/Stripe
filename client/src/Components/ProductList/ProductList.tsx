@@ -1,42 +1,54 @@
-import { useEffect, useState } from 'react';
+import { useECommerceContext, IProducts } from "../../Context/Context";
+import { useEffect, useState } from "react";
+import "./ProductList.css"
 
 const ProductList = () => {
-    const [products, setProducts] = useState([]);
+  const { products, addToCart } = useECommerceContext() as { products: IProducts[], addToCart: (id: string) =>  void };
+  const [prices, setPrices] = useState<Record<string, IPrice>>({});
 
-    useEffect(() => {
-      async function fetchProducts() {
-        try {
-          const response = await fetch('http://localhost:3000/get-all-products');
-
-          if (!response.ok) {
-            throw new Error(`Server returned status ${response.status}`);
-          }
-
-          const data = await response.json();
-          
-          setProducts(data);
-          console.log(data);
-          
-        } catch (error) {
-          console.error(error);
-        }
-      }
+  // Interface på prices
+  interface IPrice {
+      price: number,
+      id: string
+    }
   
-      fetchProducts();
-    }, []);
-  
-    return (
-      <div>
-        <ul>
-          {products.map(product => (
-          
-            
-            <li key={product.id}>{product.name}</li>
-            
-          ))}
-        </ul>
-      </div>
-    );
-}
 
-export default ProductList
+  useEffect(() => {
+    console.log(products);
+    
+    // Hämta priser för alla produkter
+    const fetchPrices = async () => {
+      const pricePromises = products.map(async (product) => {
+        const response = await fetch(`http://localhost:3000/prices/${product.price_id}`);
+        const data = await response.json();
+        return { [product.price_id]: data };
+      });
+
+      // inväntar hämtningen av alla produktpriser
+      const priceData = await Promise.all(pricePromises);
+      // konventerar listan till ett objekt istället för att göra den mer lätthanterlig
+      const priceMap = Object.assign({}, ...priceData);
+      // sparar objectet i ett state
+      setPrices(priceMap);
+      console.log("prices",prices);
+      
+    };
+
+    fetchPrices();
+  }, [products]);
+
+  return (
+    <div className="productWrapper">
+      {products.map((product) => (
+        <div className="productCard" key={product.id}>
+          <h4>{product.title}</h4>
+          <img src={product.img[0]} alt="" />
+          <h4>{prices[product.price_id] ? prices[product.price_id].price : "Laddar pris..."}</h4>
+          <button onClick={ () => addToCart(product.id)}>Köp</button>
+        </div>
+      ))}
+    </div>
+  );
+};
+
+export default ProductList;

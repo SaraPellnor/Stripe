@@ -7,3 +7,16 @@
   box-sizing: border-box;
   font-family: 'Dosis', sans-serif;
 }
+
+#root {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+}
+
+
+
+
+.overlay {
+  filter: blur(5px); /* Suddighetseffekt (ändra efter behov) */
+}

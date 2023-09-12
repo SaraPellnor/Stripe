@@ -1,6 +1,7 @@
 [
   {
-    "email": "admin@admin.se",
-    "password": "$2b$10$MlsgLAhbd0KbkiylBsZ.we6c6hDxgb963iimgRO0BdQtBU/HjsE7C"
+    "username": "sara",
+    "email": "sara@user.com",
+    "password": "$2b$10$4lJPJpq6grBz67O1Cni6mu.YBskLA56mooY3CYq/RHUI2rWxhMUSK"
   }
 ]

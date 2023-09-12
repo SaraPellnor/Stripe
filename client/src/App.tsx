@@ -1,22 +1,33 @@
-import Main from "./Components/Confirmation/Main/Main";
+import Main from "./Components/Main/Main";
 import Header from "./Components/Header/Header";
 import Footer from "./Components/Footer/Footer";
-import "./App.css"
-import LogIn from "./Components/LogIn/LogIn";
-const isLoggedIn = true
+import LogInPage from "./Components/LogInPage/LogInPage";
+import { useECommerceContext } from "./Context/Context";
 
 
 function App() {
+
+  const {isLoggedIn} = useECommerceContext()
+console.log(isLoggedIn, "i app");
+
+
   return (
     <>
-    {!isLoggedIn ? (
+    {isLoggedIn ? (
       <>
         <Header />
         <Main />
         <Footer />
       </>
     ) : (
-      <LogIn />
+      <>
+      <div className="overlay">
+      <Header />
+      <Main />
+      <Footer />
+      </div>
+      <LogInPage />
+      </>
     )}
   </>
     
