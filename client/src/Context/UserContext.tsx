@@ -119,6 +119,7 @@ export function UserProvider({ children }: PropsWithChildren) {
       localStorage.clear();
       setIsLoggedIn(false);
       setIsRegistrated(false)
+      navigate("/");
       
     } catch (error) {
       console.log(error);

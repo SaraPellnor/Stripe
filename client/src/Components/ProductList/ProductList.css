@@ -1,22 +1,25 @@
 .productWrapper {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1em;
-
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 2em;
+  gap: 1em;
 }
 
 .productCard {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-width: 30%;
-gap: 1em;
-background-color: white;
-border: black solid 1px;
-border-radius: 7px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 45%;
+  gap: 1em;
+  background-color: white;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+padding: 1em;
+  border-radius: 10px;
 }
 
 .productCard img {
-    width: 80px;
+  width: 100%;
 }

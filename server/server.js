@@ -155,6 +155,7 @@ app.get("/get-all-products", async (req, res) => {
 
 app.post("/create-checkout-session", async (req, res) => {
   try {
+    console.log(req.body);
     const session = await stripe.checkout.sessions.create({
       line_items: req.body.order,
       mode: "payment",
@@ -172,46 +173,56 @@ app.post("/create-checkout-session", async (req, res) => {
 
 app.get("/order-success/:id", async (req, res) => {
   try {
-    const session = await stripe.checkout.sessions.retrieve(req.params.id);
+    const session = await stripe.checkout.sessions.retrieve(req.params.id, {
+      expand: ["line_items"],
+    });
+    console.log("customer",session.customer);
+    const currentDate = new Date();
+    const formattedDate = currentDate.toISOString().split("T")[0];
+    const user = session.customer;
+    console.log("user", user);
+    const items = session.line_items.data.map((element) => ({
+      id: element.id,
+      price: element.amount_total,
+      description: element.description,
+      quantity: element.quantity,
+    }));
+    const order = {
+      orderId: req.params.id,
+      orderDate: formattedDate,
+      totalPrice: session.amount_total,
+      item: items,
+      customer: session.customer_details.name,
+    };
+    console.log(orderData);
+    if (orderData.hasOwnProperty(user)) {
+      console.log("användaren har en order");
+      orderData[user].push(order);
+    } else {
+      console.log("användarens första order");
+      orderData[user] = [order];
+    }
 
-    stripe.checkout.sessions.listLineItems(
-      req.params.id,
-      { limit: 5 },
-      async (err, lineItems) => {
+    fs.writeFile(
+      "./db/orders.json",
+      JSON.stringify(orderData, null, 2),
+      (err) => {
         if (err) {
-          return res.status(500).json({ error: err.message });
+          res.status(404).send(err);
         }
-        const currentDate = new Date();
-        const formattedDate = currentDate.toISOString();
-        const email = session.customer_details.email;
-        const order = {
-          orderId: req.params.id,
-          orderDate: formattedDate,
-          totalPrice: session.amount_total,
-          currency: session.currency,
-          item: lineItems.data,
-          customer: session.customer_details.name,
-        };
-        if (orderData.hasOwnProperty(email)) {
-          console.log("användaren har en order");
-          orderData[email].push(order);
-        } else {
-          console.log("användarens första order");
-          orderData[email] = [order];
-        }
-
-        fs.writeFile(
-          "./db/orders.json",
-          JSON.stringify(orderData, null, 2),
-          (err) => {
-            if (err) {
-              res.status(404).send(err);
-            }
-          }
-        );
-        res.status(200).json(order);
       }
     );
+    res.status(200).json(order);
+  } catch (error) {
+    res.status(400).json(error);
+  }
+});
+
+app.get("/orders/:id", async (req, res) => {
+  try {
+    const orders = orderData[req.params.id]
+  console.log(orders);
+    res.status(200).json(orders);
   } catch (error) {
     res.status(400).json(error);
   }

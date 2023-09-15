@@ -1,3 +1,8 @@
+.cartWrapper {
+  margin-top: 2em;
+  text-align: center;
+}
+
 .inCart {
   display: flex;
   align-items: center;
@@ -6,31 +11,31 @@
   height: 100vh;
 }
 
-table {
+.inCart table {
   margin-top: 1em;
   width: 100%;
   border-collapse: collapse;
 }
 
-th,
+.inCart th,
 td {
   border: 1px solid #ccc;
   padding: 8px;
   text-align: left;
 }
 
-th {
+.inCart th {
   background-color: #f2f2f2;
 }
 
-tr:nth-child(even) {
+.inCart tr:nth-child(even) {
   background-color: #f2f2f2;
 }
 
-tr:hover {
+.inCart tr:hover {
   background-color: #ddd;
 }
 
-.inCart button {
+.inCart .inCart button {
   margin-bottom: 1em;
 }

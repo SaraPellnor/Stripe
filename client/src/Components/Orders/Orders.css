@@ -1,0 +1,50 @@
+.orders {
+    padding-top: 2em;
+    background-color: white;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+ gap: 2em;
+  width: 100vw;
+}
+
+.orders table {
+  margin: 2em;
+  border: 2px solid black;
+  border-radius: 20px;
+  width: 80%;
+  border-collapse: collapse;
+}
+
+.orders table,
+th,
+td {
+  border: none;
+}
+.orders th,
+td {
+  padding: 8px;
+  text-align: left;
+}
+
+.orders th {
+  background-color: #f2f2f2;
+}
+
+.orders tbody:nth-child(odd) {
+  background-color: #f2f2f2;
+}
+
+.orders tr:hover {
+  background-color: #dddddd64;
+}
+/* .orders p:nth-child(even) {
+    background-color: #c5c5c5;
+  } */
+.orders p:hover {
+  background-color: #bab7b7;
+}
+
+.orders .inCart button {
+  margin-bottom: 1em;
+}

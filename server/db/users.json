@@ -4,5 +4,11 @@
     "username": "linda",
     "email": "linda@user.com",
     "password": "$2b$10$cmo5Z0Oml0X7k.bTbSiK8e5buxPJS4eS4Kd1ZjxKxPEFm.xC/jW32"
+  },
+  {
+    "id": "cus_OdyW3ywQDbw7Sn",
+    "username": "sam pellnor",
+    "email": "sam@user.com",
+    "password": "$2b$10$Uq68RaS4KSq8He6jkUI0XufufLP4zrQjJ2aNMNd3rpjjnmLrJFe/u"
   }
 ]

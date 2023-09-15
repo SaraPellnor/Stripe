@@ -3,15 +3,25 @@ import { useOrderContext } from "../../Context/OrderContext";
 import "./Cart.css";
 import { useUserContext } from "../../Context/UserContext";
 import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 const Cart = () => {
-  console.log("cart");
+  const { handleCheckout } = useOrderContext();
 
-  const { inCart, handleCheckout } = useOrderContext();
   const { isLoggedIn } = useUserContext();
-const navigateTo = useNavigate()
-  const totalPrice = inCart.reduce((accumulator, item) => {
-    return accumulator + item.quantity * item.price;
-  }, 0);
+  const [totalPrice, setTotalPrice] = useState();
+  const navigateTo = useNavigate();
+  const inCart = JSON.parse(localStorage.getItem("inCart") || "null");
+  useEffect(() => {
+    if (inCart) {
+      const sum = inCart.reduce(
+        (accumulator: number, item: { quantity: number; price: number }) => {
+          return accumulator + item.quantity * item.price;
+        },
+        0
+      );
+      setTotalPrice(sum);
+    }
+  }, []);
 
   const handleCheckoutClick = () => {
     if (isLoggedIn) {
@@ -22,30 +32,36 @@ const navigateTo = useNavigate()
   };
 
   return (
-    <div className="inCart">
-      <table>
-        <thead>
-          <tr>
-            <th>Titel</th>
-            <th>Pris</th>
-            <th>Antal</th>
-          </tr>
-        </thead>
-        {inCart.map((item: IProducts) => {
-          return (
-            <tbody key={item.id}>
+    <div className="cartWrapper">
+      {inCart != null ? (
+        <div className="inCart">
+          <table>
+            <thead>
               <tr>
-                <td>{item.title}</td>
-                <td>{item.price}</td>
-                <td>{item.quantity}</td>
+                <th>Titel</th>
+                <th>Pris</th>
+                <th>Antal</th>
               </tr>
-            </tbody>
-          );
-        })}
-      </table>
-      <div>Totalpris: {totalPrice} kr</div>
+            </thead>
+            {inCart.map((item: IProducts) => {
+              return (
+                <tbody key={item.title}>
+                  <tr>
+                    <td>{item.title}</td>
+                    <td>{item.price}</td>
+                    <td>{item.quantity}</td>
+                  </tr>
+                </tbody>
+              );
+            })}
+          </table>
+          <div>Totalpris: {totalPrice} kr</div>
 
-      <button onClick={handleCheckoutClick}>Gå till betalningen</button>
+          <button onClick={handleCheckoutClick}>Gå till betalningen</button>
+        </div>
+      ) : (
+        <h1>Här vart det tomt!</h1>
+      )}
     </div>
   );
 };
