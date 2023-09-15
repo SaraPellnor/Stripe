@@ -1,9 +1,17 @@
 import { ChangeEvent } from "react";
-import { useECommerceContext } from "../../Context/Context";
 import "./LogInForm.css";
+import { useUserContext } from "../../Context/UserContext";
+import { useNavigate } from "react-router-dom";
 
 const LogIn = () => {
-  const { setIsRegistrated, handleLogInSubmit, email, setEmail, password, setPassword } = useECommerceContext();
+  const navigateTo = useNavigate();
+  const {
+    handleLogInSubmit,
+    email,
+    setEmail,
+    password,
+    setPassword,
+  } = useUserContext();
 
   const handleEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
@@ -11,10 +19,6 @@ const LogIn = () => {
 
   const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
-  };
-
-  const handleRegistration = () => {
-    setIsRegistrated(false);
   };
 
   return (
@@ -38,8 +42,7 @@ const LogIn = () => {
         <button type="submit">Logga in</button>
       </form>
       <p>
-        Inget konto ännu? Registrera dig{" "}
-        <a onClick={handleRegistration}>här</a>
+        Inget konto ännu? Registrera dig <a onClick={()=>navigateTo("/registration")}>här</a>
       </p>
     </>
   );
