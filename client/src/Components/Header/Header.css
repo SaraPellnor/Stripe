@@ -1,7 +1,6 @@
 .header {
-  height: 31.3em;
+  height: 25.6em;
   width: 100vw;
-  /* position: relative; */
 }
 
 .logo {
@@ -9,7 +8,7 @@
   flex-direction: row;
   height: 23em;
   width: 100vw;
-  background-image: url("../../assets/Skärmbild 2023-09-06 113603.png");
+  background-image: url("../../assets/gitarrbutiken.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
@@ -17,64 +16,7 @@
 }
 
 .cupong {
-  background-color: orange;
+  background-color: #eee966;
   text-align: center;
   padding: 0.7em;
-}
-
-.navMenu {
-  /* position: sticky;
-    top: 0;
-    z-index: 100; */
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 7em;
-  gap: 10%;
-  width: 100%;
-  min-width: 411px;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.5); /* Skugga med en offset på 2px nedåt och 4px skugga */
-}
-
-.navMenu  div {
-width: 4.5em;
-display: flex;
-align-items: center;
-justify-content: center;
-}
-
-.navMenu  div svg:hover {
-  color: rgb(118, 117, 117); 
-  font-size: 4.5em;
-  cursor: pointer;
-}
-
-.icon {
-  font-size: 4em;
-  color: rgb(145, 145, 145);
-}
-
-.navMenu a {
-  text-decoration: none;
-  color: black;
-}
-.cart {
-  position: relative;
-}
-
-.cart-num {
-  z-index: 1;
-  position: absolute;
-  right: 4px;
-  top: 4px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 1.5em;
-  height: 1.5em;
-
-  background-color: rgb(247, 234, 200);
-  border-radius: 50%;
-  font-weight: bold;
 }

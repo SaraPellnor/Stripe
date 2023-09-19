@@ -147,7 +147,6 @@ export function OrderProvider({ children }: PropsWithChildren) {
 
       const data = await response.json();
 
-      console.log(data);
       setOrders(data);
     } catch (error) {
       console.error(error);

@@ -8,7 +8,6 @@ import {
 } from "react";
 import { useNavigate } from "react-router-dom";
 
-
 const UserContext = createContext<{
   isLoggedIn: boolean;
   setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
@@ -20,6 +19,7 @@ const UserContext = createContext<{
   setPassword: React.Dispatch<React.SetStateAction<string>>;
   username: string;
   setUsername: React.Dispatch<React.SetStateAction<string>>;
+  checkCookie: () => Promise<void>;
 
   handleCreateSubmit: (e: FormEvent<HTMLFormElement>) => Promise<void>;
   handleLogInSubmit: (e: FormEvent<HTMLFormElement>) => Promise<void>;
@@ -35,6 +35,7 @@ const UserContext = createContext<{
   setIsRegistrated: () => {},
   username: "",
   setUsername: () => {},
+  checkCookie: async () => {},
 
   handleCreateSubmit: async () => {},
   handleLogInSubmit: async () => {},
@@ -51,11 +52,12 @@ export function UserProvider({ children }: PropsWithChildren) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
+  const [isUrlRegistration, setIsUrlRegistration] = useState(false);
   const navigate = useNavigate();
 
   const handleCreateSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    
+
     //Validering av lösenord
     if (password.length < 8) {
       return alert("Lösenordet måste vara minst 8 karaktärer långt!");
@@ -80,13 +82,12 @@ export function UserProvider({ children }: PropsWithChildren) {
     });
 
     const data = await response.json();
-    
-    // localStorage.setItem("userId", data);
-    navigate("/login")
 
+    // localStorage.setItem("userId", data);
+    setIsUrlRegistration(true);
+    navigate("/login");
     data ? setIsRegistrated(true) : alert("Användaren finns redan registrerad");
   };
-
   const handleLogInSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const response = await fetch("/api/login", {
@@ -109,35 +110,34 @@ export function UserProvider({ children }: PropsWithChildren) {
 
     setIsLoggedIn(true);
     localStorage.setItem("userId", JSON.stringify(data.id));
-    navigate(-1);
+    isUrlRegistration ? navigate(-3) : navigate(-1);
+    setIsUrlRegistration(false);
   };
 
   const handleLogOut = async () => {
     try {
       await fetch("/api/logout");
-      
+
       localStorage.clear();
       setIsLoggedIn(false);
-      setIsRegistrated(false)
+      setIsRegistrated(false);
       navigate("/");
-      
     } catch (error) {
       console.log(error);
     }
   };
 
-  const ceckCookie = async () => {
+  const checkCookie = async () => {
     try {
       const response = await fetch("/api/check-cookie");
       if (response.ok) {
-        // Kontrollera om förfrågan var framgångsrik
         const data = await response.json();
 
         if (data) {
           setIsLoggedIn(true);
         } else {
           setIsLoggedIn(false);
-          navigate("/");
+          // navigate("/");
         }
       } else {
         console.error("Något gick fel med fetch-förfrågan.", response.status);
@@ -148,7 +148,7 @@ export function UserProvider({ children }: PropsWithChildren) {
   };
 
   useEffect(() => {
-    ceckCookie();
+    checkCookie();
   }, []);
 
   return (
@@ -168,6 +168,7 @@ export function UserProvider({ children }: PropsWithChildren) {
         handleCreateSubmit,
         handleLogInSubmit,
         handleLogOut,
+        checkCookie,
       }}
     >
       {children}

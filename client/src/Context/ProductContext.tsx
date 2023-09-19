@@ -16,18 +16,30 @@ export interface IProducts {
   default_price: string;
 }
 
+export interface IProductInCart {
+  title: string;
+  price: number;
+  quantity: number;
+}
+
 const ProductContext = createContext<{
   products: IProducts[];
   setProducts: React.Dispatch<React.SetStateAction<IProducts[]>>;
   fetchProducts: () => Promise<void>;
   addToCart: (product: IProducts) => void;
   inCartLength: number;
+  setInCartLength: React.Dispatch<React.SetStateAction<number>>
+  inCart: IProductInCart[] 
+  setInCart: React.Dispatch<React.SetStateAction<IProductInCart[]>>
 }>({
   products: [],
   setProducts: () => {},
   fetchProducts: async () => {},
   addToCart: () => {},
   inCartLength: 0,
+  setInCartLength: () => {},
+  inCart:[], 
+  setInCart: () => {}
 });
 
 // Krok
@@ -37,6 +49,7 @@ export const useProductContext = () => useContext(ProductContext);
 export function ProductProvider({ children }: PropsWithChildren) {
   const [products, setProducts] = useState<IProducts[]>([]);
   const [inCartLength, setInCartLength] = useState(0);
+  const [inCart, setInCart] = useState<IProductInCart[]>([]);
 
   async function fetchProducts() {
     try {
@@ -62,12 +75,13 @@ export function ProductProvider({ children }: PropsWithChildren) {
     const existingCart = localStorage.getItem("inCart");
     const newObject = {
       title: product.title,
-      price: product.default_price,
+      price: product.price,
       quantity: product.quantity,
     };
 
     if (!existingCart) {
       localStorage.setItem("inCart", JSON.stringify([newObject]));
+      setInCart([newObject])
     } else {
       const cartArray = JSON.parse(existingCart);
 
@@ -82,11 +96,11 @@ export function ProductProvider({ children }: PropsWithChildren) {
       }
 
       localStorage.setItem("inCart", JSON.stringify(cartArray));
+      setInCart(cartArray)
     }
 
     setInCartLength((prevLength) => {
       const updatedLength = prevLength + 1;
-      console.log(updatedLength);
 
       localStorage.setItem("cartLength", JSON.stringify(updatedLength));
       return updatedLength;
@@ -107,6 +121,9 @@ export function ProductProvider({ children }: PropsWithChildren) {
         fetchProducts,
         addToCart,
         inCartLength,
+        setInCartLength,
+        inCart, 
+        setInCart,
       }}
     >
       {children}

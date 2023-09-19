@@ -1,12 +1,16 @@
 import { useEffect } from "react";
 import "./Orders.css";
+import { useNavigate } from "react-router-dom";
 import { IOrdersItems, useOrderContext } from "../../Context/OrderContext";
+
 const Orders = () => {
+  const navigateTo = useNavigate();
   const { fetchOrders, orders } = useOrderContext();
 
   useEffect(() => {
+    window.scrollTo(0, 410);
+    !localStorage.getItem("userId") && navigateTo("/login");
     fetchOrders();
-    
   }, []);
 
   return (
