@@ -1,0 +1,18 @@
+.orders {
+  margin-top: 2em;
+ 
+  background-color: white;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 2em;
+  width: 100vw;
+}
+
+.orders h1 {
+ text-align: center;
+}
+
+.orders .inCart button {
+  margin-bottom: 1em;
+}

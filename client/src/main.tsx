@@ -8,12 +8,12 @@ import { OrderProvider } from "./Context/OrderContext.tsx";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <BrowserRouter>
+  <OrderProvider>
     <UserProvider>
       <ProductProvider>
-        <OrderProvider>
           <App />
-        </OrderProvider>
       </ProductProvider>
     </UserProvider>
+    </OrderProvider>
   </BrowserRouter>
 );

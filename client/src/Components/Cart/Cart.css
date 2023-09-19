@@ -1,36 +1,28 @@
+.cartWrapper {
+  margin-top: 2em;
+  text-align: center;
+}
+
 .inCart {
   display: flex;
   align-items: center;
   flex-direction: column;
-  justify-content: space-between;
+  gap: 2em;
   height: 100vh;
 }
-
-table {
-  margin-top: 1em;
-  width: 100%;
-  border-collapse: collapse;
+.trash {
+  width: 2em;
+  height: 2em;
+  background-image: url("../../assets/Trash.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
-th,
-td {
-  border: 1px solid #ccc;
-  padding: 8px;
-  text-align: left;
+.trash:hover {
+  background-image: url("../../assets/Trash-hover.gif");
 }
 
-th {
-  background-color: #f2f2f2;
-}
-
-tr:nth-child(even) {
-  background-color: #f2f2f2;
-}
-
-tr:hover {
-  background-color: #ddd;
-}
-
-.inCart button {
+.inCart .inCart button {
   margin-bottom: 1em;
 }

@@ -1,83 +1,22 @@
 .header {
-    height: 31.3em;
-    width: 100vw;
-    /* position: relative; */
+  height: 25.6em;
+  width: 100vw;
 }
 
 .logo {
-    display: flex;
-    flex-direction: row;
-    height: 23em;
-    width: 100vw;
-    background-image: url("../../assets/Skärmbild 2023-09-06 113603.png");
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    min-width: 411px;
+  display: flex;
+  flex-direction: row;
+  height: 23em;
+  width: 100vw;
+  background-image: url("../../assets/gitarrbutiken.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  min-width: 411px;
 }
 
 .cupong {
-  background-color: orange;
+  background-color: #eee966;
   text-align: center;
-  height: 1.3em;
+  padding: 0.7em;
 }
-
-.navMenu {
-    /* position: sticky;
-    top: 0;
-    z-index: 100; */
-position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 7em;
-    min-width: 411px;
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.5); /* Skugga med en offset på 2px nedåt och 4px skugga */
-}
-
-.navMenu ul {
-    display: flex;
-    justify-content: center;
-    gap: 3em;
-    list-style: none; 
-}
-
-.navMenu li {
-    width: 60px;
-    height: 30px;
-}
-
-.navMenu li:hover {
-    color: rgb(169, 167, 167); /* Önskad textfärg vid hover */
-    font-size: 15px; /* Öka textens fetstil för att göra den mer framträdande */
-    cursor: pointer;
-  }
-
-  a {
-    text-decoration: none;
-    color: black;
-  }
-
-  .cart {
-    z-index: 1;
-    position: absolute;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 1.5em;
-    height: 1.5em;
-    top: 1px;
-    right: 44px;
-    background-color: rgb(247, 234, 200);
-    border-radius: 50%;
-    font-weight: bold;
-  }
-
-  .cart-icon {
-    position: absolute;
-    top: 15px;
-    right: 60px;
-    font-size: 2em;
-    color: rgb(99, 166, 99);
-  }
-

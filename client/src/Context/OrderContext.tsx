@@ -1,63 +1,84 @@
 import { createContext, useState, useContext, PropsWithChildren } from "react";
-
 import { IProducts } from "./ProductContext";
 
 interface IItemObj {
-  amount_total: number;
+  id: string;
   description: string;
   price: number;
   quantity: number;
 }
 
 interface IOrderCompleted {
+  orderId: string;
   customer: string;
-  items: IItemObj;
+  item: IItemObj[];
   orderDate: string;
   totalPrice: number;
 }
+interface IOrders {
+  orderId: string;
+  orderDate: string;
+  totalPrice: number;
+  item: [];
+  customer: string;
+}
 
+export interface IOrdersItems {
+description: 
+string
+id: 
+string
+price: 
+number
+quantity
+: number
+}
 const OrderContext = createContext<{
-  inCart: IProducts[];
-  setInCart: React.Dispatch<React.SetStateAction<IProducts[]>>;
   orderCompleted: IOrderCompleted;
-  inCartLength: number
-
-  addToCart: (product: IProducts) => void;
+  orders: IOrders[];
   handleCheckout: () => void;
   fetchOrderSuccess: () => void;
+  fetchOrders: () => void;
 }>({
-  inCart: [],
-  setInCart: () => {},
   orderCompleted: {
+    orderId: "",
     customer: "",
-    items: {
-      amount_total: 0,
-      description: "",
-      price: 0,
-      quantity: 0,
-    },
+    item: [
+      {
+        id: "",
+        description: "",
+        price: 0,
+        quantity: 0,
+      },
+    ],
     orderDate: "",
     totalPrice: 0,
   },
-  inCartLength: 0,
-
-  addToCart: () => {},
+  orders: [{
+    orderId: "",
+    orderDate: "",
+    totalPrice: 0,
+    item: [],
+    customer: ""
+}],
   handleCheckout: () => {},
   fetchOrderSuccess: () => {},
+  fetchOrders: () => {},
 });
 
-// Krok
 // eslint-disable-next-line react-refresh/only-export-components
 export const useOrderContext = () => useContext(OrderContext);
 
 export function OrderProvider({ children }: PropsWithChildren) {
-  const [inCart, setInCart] = useState<IProducts[]>([]);
   const [orderCompleted, setOrderCompleted] = useState<IOrderCompleted>(Object);
-  const [inCartLength, setInCartLength] = useState(0);
+  const [orders, setOrders] = useState<IOrders[]>([]);
+
   const handleCheckout = async () => {
     try {
-      const newArray = inCart.map((item) => ({
-        price: item.default_price,
+      const inCart = JSON.parse(localStorage.getItem("inCart") || "null");
+
+      const newArray = inCart.map((item: IProducts) => ({
+        price: item.price,
         quantity: item.quantity,
       }));
 
@@ -104,70 +125,42 @@ export function OrderProvider({ children }: PropsWithChildren) {
 
       const data = await response.json();
 
-      const itemArray = data.item.map((element: IItemObj) => ({
-        description: element.description,
-        price: element.amount_total,
-        quantity: element.quantity,
-      }));
+      setOrderCompleted(data);
 
-      // Skapa ett objekt av typ IOrderResume
-      const resumeObj = {
-        customer: data.customer,
-        orderDate: data.orderDate,
-        totalPrice: data.totalPrice,
-        items: itemArray,
-      };
-
-      setOrderCompleted(resumeObj);
-      setInCart([]);
-      localStorage.removeItem("order_id");
       localStorage.removeItem("inCart");
+      localStorage.removeItem("cartLength");
     } catch (error) {
       console.error(error);
     }
   };
 
-  const addToCart = (product: IProducts) => {
-    if (inCartLength > 9) {
-      return alert("Nu är varukorgen full du!!!!");
-    }
-    const existingCart = localStorage.getItem("inCart");
+  const fetchOrders = async () => {
+    try {
+      const userId = JSON.parse(localStorage.getItem("userId") || "null");
 
-    if (!existingCart) {
-      const newArray = [product];
-      localStorage.setItem("inCart", JSON.stringify(newArray));
-      setInCart(newArray);
-    } else {
-      const cartArray = JSON.parse(existingCart);
+      if(!userId) return
+      const response = await fetch(`http://localhost:3000/orders/${userId}`);
 
-      const productIndex = cartArray.findIndex(
-        (item: IProducts) => item.id === product.id
-      );
-      if (productIndex !== -1) {
-        cartArray[productIndex].quantity += 1;
-      } else {
-        cartArray.push(product);
+      if (!response.ok) {
+        throw new Error(`Server returned status ${response.status}`);
       }
 
-      setInCartLength(inCartLength + 1);
-      console.log(inCartLength);
+      const data = await response.json();
 
-      setInCart(cartArray);
-      localStorage.setItem("inCart", JSON.stringify(cartArray));
+      setOrders(data);
+    } catch (error) {
+      console.error(error);
     }
   };
 
   return (
     <OrderContext.Provider
       value={{
-        inCart,
-        setInCart,
         orderCompleted,
-        inCartLength,
-
-        addToCart,
+        orders,
         handleCheckout,
         fetchOrderSuccess,
+        fetchOrders,
       }}
     >
       {children}

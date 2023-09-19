@@ -1,4 +1,10 @@
-import { createContext, useState, useContext, PropsWithChildren } from "react";
+import {
+  createContext,
+  useState,
+  useContext,
+  PropsWithChildren,
+  useEffect,
+} from "react";
 
 export interface IProducts {
   id: string;
@@ -10,14 +16,30 @@ export interface IProducts {
   default_price: string;
 }
 
+export interface IProductInCart {
+  title: string;
+  price: number;
+  quantity: number;
+}
+
 const ProductContext = createContext<{
   products: IProducts[];
   setProducts: React.Dispatch<React.SetStateAction<IProducts[]>>;
   fetchProducts: () => Promise<void>;
+  addToCart: (product: IProducts) => void;
+  inCartLength: number;
+  setInCartLength: React.Dispatch<React.SetStateAction<number>>
+  inCart: IProductInCart[] 
+  setInCart: React.Dispatch<React.SetStateAction<IProductInCart[]>>
 }>({
   products: [],
   setProducts: () => {},
   fetchProducts: async () => {},
+  addToCart: () => {},
+  inCartLength: 0,
+  setInCartLength: () => {},
+  inCart:[], 
+  setInCart: () => {}
 });
 
 // Krok
@@ -26,6 +48,8 @@ export const useProductContext = () => useContext(ProductContext);
 
 export function ProductProvider({ children }: PropsWithChildren) {
   const [products, setProducts] = useState<IProducts[]>([]);
+  const [inCartLength, setInCartLength] = useState(0);
+  const [inCart, setInCart] = useState<IProductInCart[]>([]);
 
   async function fetchProducts() {
     try {
@@ -43,12 +67,63 @@ export function ProductProvider({ children }: PropsWithChildren) {
     }
   }
 
+  const addToCart = (product: IProducts) => {
+    if (inCartLength > 9) {
+      return alert("Nu är varukorgen full du!!!!");
+    }
+
+    const existingCart = localStorage.getItem("inCart");
+    const newObject = {
+      title: product.title,
+      price: product.price,
+      quantity: product.quantity,
+    };
+
+    if (!existingCart) {
+      localStorage.setItem("inCart", JSON.stringify([newObject]));
+      setInCart([newObject])
+    } else {
+      const cartArray = JSON.parse(existingCart);
+
+      const productIndex = cartArray.findIndex(
+        (item: IProducts) => item.title === product.title
+      );
+
+      if (productIndex !== -1) {
+        cartArray[productIndex].quantity += 1;
+      } else {
+        cartArray.push(newObject);
+      }
+
+      localStorage.setItem("inCart", JSON.stringify(cartArray));
+      setInCart(cartArray)
+    }
+
+    setInCartLength((prevLength) => {
+      const updatedLength = prevLength + 1;
+
+      localStorage.setItem("cartLength", JSON.stringify(updatedLength));
+      return updatedLength;
+    });
+  };
+
+  useEffect(() => {
+    const cartLength = JSON.parse(localStorage.getItem("cartLength") || "null");
+
+    cartLength != null ? setInCartLength(cartLength) : setInCartLength(0);
+  }, []);
+
   return (
     <ProductContext.Provider
       value={{
         products,
         setProducts,
         fetchProducts,
+        addToCart,
+        inCartLength,
+        setInCartLength,
+        inCart, 
+        setInCart,
       }}
     >
       {children}
