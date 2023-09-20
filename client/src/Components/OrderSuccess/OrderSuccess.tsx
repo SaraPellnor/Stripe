@@ -6,6 +6,7 @@ const OrderSuccess = () => {
   const itemArray = orderCompleted.item;
 
   useEffect(() => {
+    window.scrollTo(0, 410);
     fetchOrderSuccess();
   }, []);
 
@@ -22,9 +23,9 @@ const OrderSuccess = () => {
            
           </div>
           <div className="orderItem">
+          <p style={{fontWeight: "bold"}}>Produktinfo:</p>
             {itemArray.map((element) => (
               <div className="item" key={element.id}>
-                <p style={{fontWeight: "bold"}}>Produktinfo:</p>
                 <p>{element.description}</p>
                 <p>Pris: {element.price} kr</p>
                 <p>Antal: {element.quantity}</p>

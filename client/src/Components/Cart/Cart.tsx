@@ -49,10 +49,12 @@ const Cart = () => {
   };
 
   useEffect(() => {
-    setInCart(JSON.parse(localStorage.getItem("inCart") || "null"));
+    const cart=JSON.parse(localStorage.getItem("inCart") || "null")
+    setInCart(cart)
+    
     window.scrollTo(0, 410);
-    if (inCart) {
-      const sum = inCart.reduce(
+    if (cart) {
+      const sum = cart.reduce(
         (accumulator: number, item: { quantity: number; price: number }) => {
           return accumulator + item.quantity * item.price;
         },

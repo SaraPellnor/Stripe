@@ -1,0 +1,15 @@
+.orderFaild {
+    padding: 2em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1em;
+}
+
+.orderFaild h5 {
+color: rgb(255, 0, 0);
+}
+
+.orderFaild h3 {
+    color: rgb(126, 148, 37);
+    }

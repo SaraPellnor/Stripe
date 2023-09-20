@@ -76,9 +76,10 @@ export function OrderProvider({ children }: PropsWithChildren) {
   const handleCheckout = async () => {
     try {
       const inCart = JSON.parse(localStorage.getItem("inCart") || "null");
+console.log(inCart);
 
       const newArray = inCart.map((item: IProducts) => ({
-        price: item.price,
+        price: item.default_price,
         quantity: item.quantity,
       }));
 
@@ -101,6 +102,7 @@ export function OrderProvider({ children }: PropsWithChildren) {
 
       if (response.ok) {
         const data = await response.json();
+        
         localStorage.setItem("order_id", JSON.stringify(data.session_id));
         window.location = data.url;
       } else {

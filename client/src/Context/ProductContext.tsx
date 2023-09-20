@@ -75,6 +75,7 @@ export function ProductProvider({ children }: PropsWithChildren) {
     const existingCart = localStorage.getItem("inCart");
     const newObject = {
       title: product.title,
+      default_price: product.default_price,
       price: product.price,
       quantity: product.quantity,
     };

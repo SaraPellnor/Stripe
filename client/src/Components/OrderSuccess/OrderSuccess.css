@@ -34,10 +34,6 @@
 margin-top: 1em;
 }
 
-.item:nth-child(odd) {
-    background-color: rgb(234, 232, 232);
-}
-
 .item {
     padding: 1em;
    
