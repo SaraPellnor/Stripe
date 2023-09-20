@@ -1,22 +1,19 @@
 
 
 .footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-right: em;
     background-color: black;
     color: white;
     padding: 20px 0;
     width: 100%;
   }
   
-  .container {
-    display: flex;
-    gap: 2em;
-    align-items: center;
-    padding: 1em;
-  }
-  
-  .contact-info {
-    flex: 1;
-  }
+.contact-info {
+    margin-left: 3em;
+}
   
   .input {
     width: 100%;
@@ -32,20 +29,20 @@
     cursor: pointer;
   }
   
-  .additional-info {
-    flex: 1;
+  .info {
+    margin-right: 3em;
   }
-  
-  .additional-info h3 {
+
+  .info h3 {
     margin-bottom: 10px;
   }
   
-  .additional-info ul {
+  .info ul {
     list-style: none;
     padding: 0;
   }
   
-  .additional-info ul li {
+  .info ul li {
     margin-bottom: 5px;
   }
   
