@@ -1,5 +1,7 @@
 Webbshop-projekt med TypeScript, Express och React med Stripe Integration - SKOLPROJEKT
 
+Alla kraven är uppfyllda inklusive VG delen.
+
 Översikt
 Det här projektet är en enkel webbshop där användare kan bläddra bland produkter, lägga till dem i sin kundvagn och slutföra köp med hjälp av Stripe som betalningsgateway. Projektet är uppdelat i en klient och en server, där klienten bygger på React och servern på Express. TypeScript (TSX) används för att säkerställa typsäkerhet i hela applikationen.
 
