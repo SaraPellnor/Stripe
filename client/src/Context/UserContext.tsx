@@ -83,11 +83,12 @@ export function UserProvider({ children }: PropsWithChildren) {
 
     const data = await response.json();
 
-    // localStorage.setItem("userId", data);
     setIsUrlRegistration(true);
     navigate("/login");
     data ? setIsRegistrated(true) : alert("Användaren finns redan registrerad");
   };
+
+  // Hanterar inloggningen
   const handleLogInSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const response = await fetch("/api/login", {
@@ -114,6 +115,7 @@ export function UserProvider({ children }: PropsWithChildren) {
     setIsUrlRegistration(false);
   };
 
+  // Hanterar utloggningen
   const handleLogOut = async () => {
     try {
       await fetch("/api/logout");
@@ -127,6 +129,7 @@ export function UserProvider({ children }: PropsWithChildren) {
     }
   };
 
+  // Kollar cookie och där med om man är inloggad.
   const checkCookie = async () => {
     try {
       const response = await fetch("/api/check-cookie");
@@ -146,7 +149,7 @@ export function UserProvider({ children }: PropsWithChildren) {
       console.error(error);
     }
   };
-
+// checkcookie kontinuerligt
   useEffect(() => {
     checkCookie();
   }, []);

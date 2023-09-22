@@ -3,10 +3,11 @@ import "./Cart.css";
 import { useUserContext } from "../../Context/UserContext";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import {
-  IProductInCart,
-  useProductContext,
-} from "../../Context/ProductContext";
+import { useProductContext } from "../../Context/ProductContext";
+import { IProductInCart } from "../../Interfaces/Interfaces";
+
+// Cart renderar ut allt som ligger i varukorgen i LS och
+// gör det möjligt att ta bort varor från varukorgen.
 
 const Cart = () => {
   const { handleCheckout } = useOrderContext();
@@ -49,9 +50,9 @@ const Cart = () => {
   };
 
   useEffect(() => {
-    const cart=JSON.parse(localStorage.getItem("inCart") || "null")
-    setInCart(cart)
-    
+    const cart = JSON.parse(localStorage.getItem("inCart") || "null");
+    setInCart(cart);
+
     window.scrollTo(0, 410);
     if (cart) {
       const sum = cart.reduce(

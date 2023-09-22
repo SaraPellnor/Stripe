@@ -1,3 +1,7 @@
+.logInDiv {
+  margin: 2em;
+}
+
 .LogInForm {
   display: flex;
   flex-direction: column;

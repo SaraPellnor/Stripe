@@ -2,11 +2,15 @@ import { useProductContext } from "../../Context/ProductContext";
 import { useEffect } from "react";
 import "./ProductList.css";
 
+// Renderar ut en loadingsymbol tills alla produkter är hämtade från backend
+// sedan renderas alla produkter ut
+
 const ProductList = () => {
   const { products, fetchProducts, addToCart } = useProductContext();
 
   useEffect(() => {
     fetchProducts();
+    window.scrollTo(0, 410);
   }, []);
   return (
     <div className="productWrapper">

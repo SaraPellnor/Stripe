@@ -10,14 +10,17 @@ import { useEffect } from "react";
 import { useProductContext } from "../../Context/ProductContext";
 import "./NavMenu.css";
 
+// sticky navmenu som gör det möjligt att navigera mellan sidorna och
+// ser om man är inloggad och hur många varor det ligger i varukorgen
+
 const NavMenu = () => {
   const { isLoggedIn, handleLogOut } = useUserContext();
   const { inCartLength, setInCartLength } = useProductContext();
 
   const logOut = () => {
-    setInCartLength(0)
-    handleLogOut()
-      }
+    setInCartLength(0);
+    handleLogOut();
+  };
 
   useEffect(() => {}, [inCartLength]);
   return (
@@ -36,7 +39,7 @@ const NavMenu = () => {
         </NavLink>
       </div>
       <div className="cart">
-      {inCartLength > 0 && <p className="cart-num">{inCartLength}</p>}
+        {inCartLength > 0 && <p className="cart-num">{inCartLength}</p>}
         <NavLink to={"/cart"}>
           <div>
             <LiaOpencart className="icon" />
@@ -44,9 +47,7 @@ const NavMenu = () => {
         </NavLink>
       </div>
       <div>
-        {isLoggedIn && (
-          <IoLogOutOutline onClick={logOut} className="icon" />
-        )}
+        {isLoggedIn && <IoLogOutOutline onClick={logOut} className="icon" />}
       </div>
     </div>
   );

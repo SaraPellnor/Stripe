@@ -1,7 +1,11 @@
 import { useEffect } from "react";
-import "./Orders.css";
 import { useNavigate } from "react-router-dom";
-import { IOrdersItems, useOrderContext } from "../../Context/OrderContext";
+import { useOrderContext } from "../../Context/OrderContext";
+import { IOrdersItems } from "../../Interfaces/Interfaces";
+import "./Orders.css";
+
+// renderar ut alla ordrar från jsonfilen i backend.
+// om ingen order finns så står det det
 
 const Orders = () => {
   const navigateTo = useNavigate();

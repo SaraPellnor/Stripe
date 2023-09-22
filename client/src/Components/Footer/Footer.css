@@ -1,48 +1,45 @@
-
-
 .footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-right: em;
-    background-color: black;
-    color: white;
-    padding: 20px 0;
-    width: 100%;
-  }
-  
-.contact-info {
-    margin-left: 3em;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-right: em;
+  background-color: black;
+  color: white;
+  padding: 20px 0;
+  width: 100%;
 }
-  
-  .input {
-    width: 100%;
-    padding: 8px;
-    margin-bottom: 10px;
-  }
-  
-  .submit-button {
-    background-color: white;
-    color: black;
-    border: none;
-    padding: 8px 16px;
-    cursor: pointer;
-  }
-  
-  .info {
-    margin-right: 3em;
-  }
 
-  .info h3 {
-    margin-bottom: 10px;
-  }
-  
-  .info ul {
-    list-style: none;
-    padding: 0;
-  }
-  
-  .info ul li {
-    margin-bottom: 5px;
-  }
-  
+.contact-info {
+  margin-left: 3em;
+}
+
+.input {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+}
+
+.submit-button {
+  background-color: white;
+  color: black;
+  border: none;
+  padding: 8px 16px;
+  cursor: pointer;
+}
+
+.info {
+  margin-right: 3em;
+}
+
+.info h3 {
+  margin-bottom: 10px;
+}
+
+.info ul {
+  list-style: none;
+  padding: 0;
+}
+
+.info ul li {
+  margin-bottom: 5px;
+}

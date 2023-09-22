@@ -1,38 +1,7 @@
 import { createContext, useState, useContext, PropsWithChildren } from "react";
-import { IProducts } from "./ProductContext";
+import { IProducts } from "../Interfaces/Interfaces";
+import {IOrderCompleted, IOrders} from "../Interfaces/Interfaces"
 
-interface IItemObj {
-  id: string;
-  description: string;
-  price: number;
-  quantity: number;
-}
-
-interface IOrderCompleted {
-  orderId: string;
-  customer: string;
-  item: IItemObj[];
-  orderDate: string;
-  totalPrice: number;
-}
-interface IOrders {
-  orderId: string;
-  orderDate: string;
-  totalPrice: number;
-  item: [];
-  customer: string;
-}
-
-export interface IOrdersItems {
-description: 
-string
-id: 
-string
-price: 
-number
-quantity
-: number
-}
 const OrderContext = createContext<{
   orderCompleted: IOrderCompleted;
   orders: IOrders[];
@@ -54,13 +23,15 @@ const OrderContext = createContext<{
     orderDate: "",
     totalPrice: 0,
   },
-  orders: [{
-    orderId: "",
-    orderDate: "",
-    totalPrice: 0,
-    item: [],
-    customer: ""
-}],
+  orders: [
+    {
+      orderId: "",
+      orderDate: "",
+      totalPrice: 0,
+      item: [],
+      customer: "",
+    },
+  ],
   handleCheckout: () => {},
   fetchOrderSuccess: () => {},
   fetchOrders: () => {},
@@ -73,10 +44,10 @@ export function OrderProvider({ children }: PropsWithChildren) {
   const [orderCompleted, setOrderCompleted] = useState<IOrderCompleted>(Object);
   const [orders, setOrders] = useState<IOrders[]>([]);
 
+  // Skickar order till stripe checkout session 
   const handleCheckout = async () => {
     try {
       const inCart = JSON.parse(localStorage.getItem("inCart") || "null");
-console.log(inCart);
 
       const newArray = inCart.map((item: IProducts) => ({
         price: item.default_price,
@@ -102,7 +73,7 @@ console.log(inCart);
 
       if (response.ok) {
         const data = await response.json();
-        
+
         localStorage.setItem("order_id", JSON.stringify(data.session_id));
         window.location = data.url;
       } else {
@@ -113,9 +84,13 @@ console.log(inCart);
     }
   };
 
+  // Hanterar lyckad order och renderar ut ny genomförd order
   const fetchOrderSuccess = async () => {
     try {
       const orderId = JSON.parse(localStorage.getItem("order_id") || "null");
+      if (!orderId) {
+        return;
+      }
 
       const response = await fetch(
         `http://localhost:3000/order-success/${orderId}`
@@ -126,30 +101,35 @@ console.log(inCart);
       }
 
       const data = await response.json();
-
       setOrderCompleted(data);
 
       localStorage.removeItem("inCart");
       localStorage.removeItem("cartLength");
+      localStorage.removeItem("order_id");
     } catch (error) {
       console.error(error);
     }
   };
 
+  //Hämtar alla orders från user och renderar ut dom på ordersidan
   const fetchOrders = async () => {
     try {
       const userId = JSON.parse(localStorage.getItem("userId") || "null");
 
-      if(!userId) return
+      if (!userId) return;
       const response = await fetch(`http://localhost:3000/orders/${userId}`);
 
       if (!response.ok) {
         throw new Error(`Server returned status ${response.status}`);
       }
 
-      const data = await response.json();
-
-      setOrders(data);
+      if (response.headers.get("content-length") === "0") {
+        console.warn("Din order är tom.");
+        setOrders([]);
+      } else {
+        const data = await response.json();
+        setOrders(data);
+      }
     } catch (error) {
       console.error(error);
     }

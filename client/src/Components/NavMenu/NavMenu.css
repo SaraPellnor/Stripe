@@ -1,67 +1,66 @@
 .navMenu {
-    position: sticky;
-    top: 0;
-    z-index: 1;
-    background-color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 7em;
-    gap: 10%;
-    width: 100%;
-    min-width: 411px;
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.5); /* Skugga med en offset på 2px nedåt och 4px skugga */
-  }
-  
-  .navMenu div {
-    width: 4.5em;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .navMenu svg:hover {
-    color:   #eee966;;
-    font-size: 4.5em;
-    cursor: pointer;
-  }
-  .logedInDott {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background-color: rgb(116, 255, 47);
-  
-    position: absolute;
-    top: 8px;
-    right: 8px;
-  }
-  .icon {
-    font-size: 4em;
-    color: rgb(93, 93, 93);
-  }
-  
-  .navMenu a {
-    text-decoration: none;
-    color: black;
-  }
-  .cart,
-  .user {
-    position: relative;
-  }
-  
-  .cart-num {
-    z-index: 1;
-    position: absolute;
-    right: 4px;
-    top: 4px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 1.5em;
-    height: 1.5em;
-  
-    background-color:  #eee966;;
-    border-radius: 50%;
-    font-weight: bold;
-  }
-  
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 7em;
+  gap: 10%;
+  width: 100%;
+  min-width: 411px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.5); /* Skugga med en offset på 2px nedåt och 4px skugga */
+}
+
+.navMenu div {
+  width: 4.5em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.navMenu svg:hover {
+  color: #eee966;
+  font-size: 4.5em;
+  cursor: pointer;
+}
+.logedInDott {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: rgb(116, 255, 47);
+
+  position: absolute;
+  top: 8px;
+  right: 8px;
+}
+.icon {
+  font-size: 4em;
+  color: rgb(93, 93, 93);
+}
+
+.navMenu a {
+  text-decoration: none;
+  color: black;
+}
+.cart,
+.user {
+  position: relative;
+}
+
+.cart-num {
+  z-index: 1;
+  position: absolute;
+  right: 4px;
+  top: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 1.5em;
+  height: 1.5em;
+
+  background-color: #eee966;
+  border-radius: 50%;
+  font-weight: bold;
+}
