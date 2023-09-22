@@ -1,10 +1,8 @@
-import { useEffect } from "react";
-import { useProductContext } from "../../Context/ProductContext";
 import "./Header.css";
 
+// Header logo och rabattkod. 
+
 const Header = () => {
-  const { inCartLength } = useProductContext();
-  useEffect(() => {}, [inCartLength]);
   return (
     <div className="header">
       <div className="logo"></div>

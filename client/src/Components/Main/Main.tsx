@@ -1,16 +1,17 @@
 import { Routes, Route } from "react-router-dom";
 import ProductList from "../ProductList/ProductList";
 import Cart from "../Cart/Cart";
-import "./Main.css";
 import OrderSuccess from "../OrderSuccess/OrderSuccess";
 import OrderFaild from "../OrderFaild/OrderFaild";
 import LogInForm from "../LogIn/LogInForm";
-import Orders from "../Orders/Orders"
+import Orders from "../Orders/Orders";
 import Registration from "../RegistrationForm/RegistrationForm";
+
+// alla routes som ligger i main
+
 const Main = () => {
   return (
     <div className="main">
-      
       <Routes>
         <Route path="/" element={<ProductList />} />
         <Route path="/orders" element={<Orders />} />

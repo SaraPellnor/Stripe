@@ -3,6 +3,8 @@ import "./RegistrationForm.css";
 import { useUserContext } from "../../Context/UserContext";
 import { useNavigate } from "react-router-dom";
 
+// skickar registreringsformuläret till handleCreateSubmit function i user context
+
 const Registration = () => {
   const {
     username,
@@ -27,12 +29,8 @@ const Registration = () => {
     setPassword(e.target.value);
   };
 
-  // skickar data till server som genererar data.
-  //Om data är false, betyder det att user redan finns i json-filen och
-  // detta genererar en alert.
-
   return (
-    <>
+    <div className="registrationDiv">
       <form className="registrationForm" onSubmit={handleCreateSubmit}>
         <h3>Skapa ny användare:</h3>
         <br />
@@ -70,7 +68,7 @@ const Registration = () => {
       <p className="return" onClick={() => navigate("/login")}>
         Tillbaka
       </p>
-    </>
+    </div>
   );
 };
 

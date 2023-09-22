@@ -5,32 +5,18 @@ import {
   PropsWithChildren,
   useEffect,
 } from "react";
+import { IProducts, IProductInCart } from "../Interfaces/Interfaces";
 
-export interface IProducts {
-  id: string;
-  title: string;
-  description: string;
-  img: string[];
-  price: number;
-  quantity: number;
-  default_price: string;
-}
-
-export interface IProductInCart {
-  title: string;
-  price: number;
-  quantity: number;
-}
-
+//ProductContext
 const ProductContext = createContext<{
   products: IProducts[];
   setProducts: React.Dispatch<React.SetStateAction<IProducts[]>>;
   fetchProducts: () => Promise<void>;
   addToCart: (product: IProducts) => void;
   inCartLength: number;
-  setInCartLength: React.Dispatch<React.SetStateAction<number>>
-  inCart: IProductInCart[] 
-  setInCart: React.Dispatch<React.SetStateAction<IProductInCart[]>>
+  setInCartLength: React.Dispatch<React.SetStateAction<number>>;
+  inCart: IProductInCart[];
+  setInCart: React.Dispatch<React.SetStateAction<IProductInCart[]>>;
 }>({
   products: [],
   setProducts: () => {},
@@ -38,8 +24,8 @@ const ProductContext = createContext<{
   addToCart: () => {},
   inCartLength: 0,
   setInCartLength: () => {},
-  inCart:[], 
-  setInCart: () => {}
+  inCart: [],
+  setInCart: () => {},
 });
 
 // Krok
@@ -51,6 +37,7 @@ export function ProductProvider({ children }: PropsWithChildren) {
   const [inCartLength, setInCartLength] = useState(0);
   const [inCart, setInCart] = useState<IProductInCart[]>([]);
 
+  // hämtar produkterna från stripe
   async function fetchProducts() {
     try {
       const response = await fetch("http://localhost:3000/get-all-products");
@@ -67,6 +54,7 @@ export function ProductProvider({ children }: PropsWithChildren) {
     }
   }
 
+  //Lägger till produkt till varukorgen
   const addToCart = (product: IProducts) => {
     if (inCartLength > 9) {
       return alert("Nu är varukorgen full du!!!!");
@@ -75,13 +63,14 @@ export function ProductProvider({ children }: PropsWithChildren) {
     const existingCart = localStorage.getItem("inCart");
     const newObject = {
       title: product.title,
+      default_price: product.default_price,
       price: product.price,
       quantity: product.quantity,
     };
 
     if (!existingCart) {
       localStorage.setItem("inCart", JSON.stringify([newObject]));
-      setInCart([newObject])
+      setInCart([newObject]);
     } else {
       const cartArray = JSON.parse(existingCart);
 
@@ -96,7 +85,7 @@ export function ProductProvider({ children }: PropsWithChildren) {
       }
 
       localStorage.setItem("inCart", JSON.stringify(cartArray));
-      setInCart(cartArray)
+      setInCart(cartArray);
     }
 
     setInCartLength((prevLength) => {
@@ -107,6 +96,7 @@ export function ProductProvider({ children }: PropsWithChildren) {
     });
   };
 
+  //sätter cartLength från LS
   useEffect(() => {
     const cartLength = JSON.parse(localStorage.getItem("cartLength") || "null");
 
@@ -122,7 +112,7 @@ export function ProductProvider({ children }: PropsWithChildren) {
         addToCart,
         inCartLength,
         setInCartLength,
-        inCart, 
+        inCart,
         setInCart,
       }}
     >

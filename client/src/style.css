@@ -10,9 +10,7 @@ body {
   width: 100vw;
 }
 #root {
-  position: relative;
   width: 100vw;
-  
 }
 
 button {
@@ -42,7 +40,7 @@ th,
 td {
   border: none;
 }
- th,
+th,
 td {
   padding: 8px;
   text-align: left;
@@ -51,10 +49,6 @@ td {
 th {
   background-color: #f2f2f2;
 }
-
- /* tbody:nth-child(odd) {
-  background-color: #f2f2f2;
-} */
 
 tr:hover {
   background-color: #dddddd64;

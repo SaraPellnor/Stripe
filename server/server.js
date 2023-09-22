@@ -27,7 +27,6 @@ const CLIENT_URL = "http://localhost:5173";
 const orderData = require("./db/orders.json");
 const userData = require("./db/users.json");
 
-// MiddleWares
 
 // ----- CREATE USER
 app.post("/create-user", async (req, res) => {
@@ -115,7 +114,7 @@ app.post("/api/login", async (req, res) => {
     res.status(500).json(error);
   }
 });
-
+// ----- LOGOUT
 app.get("/api/logout", (req, res) => {
   try {
     if (!req.session.user) {
@@ -129,6 +128,7 @@ app.get("/api/logout", (req, res) => {
   }
 });
 
+// ----- GET ALL PRODUCTS
 app.get("/get-all-products", async (req, res) => {
   try {
     const productsArray = [];
@@ -153,6 +153,7 @@ app.get("/get-all-products", async (req, res) => {
   }
 });
 
+// ----- CREATE CHECKOUT SESSION
 app.post("/create-checkout-session", async (req, res) => {
   try {
     console.log(req.body);
@@ -171,6 +172,7 @@ app.post("/create-checkout-session", async (req, res) => {
   }
 });
 
+// ----- ORDER SUCCESS - Hämtar specifik order
 app.get("/order-success/:id", async (req, res) => {
   try {
     const session = await stripe.checkout.sessions.retrieve(req.params.id, {
@@ -218,6 +220,7 @@ app.get("/order-success/:id", async (req, res) => {
   }
 });
 
+// ----- ORDERS - hämtar alla user orders
 app.get("/orders/:id", async (req, res) => {
   try {
     const orders = orderData[req.params.id]

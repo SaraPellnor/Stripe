@@ -1,6 +1,6 @@
 .orders {
   margin-top: 2em;
- 
+
   background-color: white;
   display: flex;
   align-items: center;
@@ -10,7 +10,7 @@
 }
 
 .orders h1 {
- text-align: center;
+  text-align: center;
 }
 
 .orders .inCart button {
