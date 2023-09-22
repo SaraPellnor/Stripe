@@ -21,7 +21,7 @@ Klona projektet från GitHub-repot:
 
 Öppna terminalen där du vill spara projektet
 skriv in:
-git clone https://github.com/din-anvandare/webbshop-projekt.git
+git clone https://github.com/SaraPellnor/Stripe.git
 öppna projektet i vs code
 
 Installera klientens och serverns beroenden:
